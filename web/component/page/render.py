@@ -1,9 +1,7 @@
 # encoding: cinje
 
-: from web.theme.bootstrap.base import page
-
-
 : def render_page_content page
+
 : width = 12
 <div class="row">
 
@@ -18,7 +16,6 @@
 	: end
 
 	: use block.as_stream
-
 : end
 
 </div>
