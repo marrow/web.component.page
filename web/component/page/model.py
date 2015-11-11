@@ -51,7 +51,7 @@ class Page(Asset):
 
 # Identify and register all blocks.
 
-_blocks = list(iter_entry_points('web.page.block'))
+_blocks = list(i.load() for i in iter_entry_points('web.page.block'))
 
 if __debug__:
 	for _block in _blocks:
