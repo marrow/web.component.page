@@ -27,216 +27,13 @@
 
 
 : def render_page asset
-: using page title=str(asset)
-
-<style>
-html, body { height: 100%; background-color: #fff; cursor: default; }
-input, textarea { cursor: beam; }
-p:last-child { margin-bottom: 0; }
-h1:first-child, h2:first-child, h3:first-child, h4:first-child, h5:first-child, h6:first-child { margin-top: 0; }
-
-
-
-
-.ih-head { padding: 0; margin: 15px auto; max-width: 960px; position: relative; }
-.ih-head section { }
-
-.ih-head menu { position: absolute; right: 15px; top: 0; }
-.ih-head menu > li {
-	margin-top: 10px;
-	display: inline-block;
-}
-.ih-head menu > li + li {
-	margin-left: 20px;
-}
-.ih-head menu > li > a {
-	padding-right: 0;
-	padding-left: 0;
-	font-size: 16px;
-	line-height: 1;
-	font-weight: bold;
-	color: black;
-	opacity: 0.5;
-	border-bottom: 2px solid transparent;
-	transition: opacity .25s ease-in-out;
-	-moz-transition: opacity .25s ease-in-out;
-	-webkit-transition: opacity .25s ease-in-out;
-}
-.ih-head menu > li > a:hover,
-.ih-head menu > li > a:focus {
-	text-decoration: none;
-	background-color: transparent;
-	border-bottom-color: black;
-	opacity: 0.75;
-}
-.ih-head menu > .active > a,
-.ih-head menu > .active > a:hover,
-.ih-head menu > .active > a:focus {
-	color: #fff;
-	border-bottom-color: #fff;
-	opacity: 0.9;
-}
-
-.ih-head h1 {
-	line-height: 1;
-	margin-top: 10px;
-	margin-bottom: 0;
-	display: inline-block;
-}
-
-.ih-head h2 {
-	font-size: 31px;
-	margin-top: 0;
-	line-height: 1.4;
-}
-
-
-body #job-hero { border-top: 1px solid #ccc; border-bottom: 2px solid #ccc; background-color: #eee; -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.1); padding: 25px 0; }
-body #job-hero h2 { margin: 0 auto; max-width: 960px; display: block; font-size: 24px; }
-
-section.row { padding: 20px 0; margin: 0 auto; max-width: 960px; }
-body #job-aside { }
-
-article > :last-child section { margin-top: 80px; padding: 20px 0; text-align: center; border-top: 1px solid #ccc; }
-article > :last-child section p, article > :last-child section menu, article > :last-child section li, article > :last-child section a { display: inline-block; }
-article > :last-child section a { font-weight: bold; margin-left: 20px; }
-
-
-
-</style>
+: using page title=str(asset), styles=['/public/css/site.css'], scripts=['//cdn.ckeditor.com/4.5.4/full/ckeditor.js', '/public/js/site.js']
 
 : flush
 
 <article class="container">
 
 : use asset.as_stream
-
-</article>
-
-: flush
-
-<style>
-	
-	section { text-align: left; }
-
-	.wc-properties { position: fixed; right: -100%; width: 100%; top: 0; height: 100%; overflow-x: visible; overflow-y: scroll; z-index: 10000; background-color: rgba(0,0,0,0.8); border: 0; border-left: 2px solid black; border-radius: 0; color: #ddd; -webkit-transition: right .5s ease-in-out, width .5s ease-in-out; box-model: border-box; }
-	
-	
-	body.wc-prop-active .wc-properties { right: 0px; }
-	
-	article > section, article > footer, .ih-head-content { -webkit-transition: margin-right .5s ease-in-out; }
-	@media (min-width: 640px) {
-		.wc-properties { right: -320px; width: 320px; }
-		body.wc-prop-active article > section, body.wc-prop-active article > footer,
-		body.wc-prop-active .ih-head-content { margin-right: 320px; }
-	}
-	@media (min-width: 1395px) {
-		.wc-properties { right: -420px; width: 420px; }
-		body.wc-prop-active article > section, body.wc-prop-active article > footer,
-		body.wc-prop-active .ih-head-content { margin-right: 420px; }
-	}
-		
-	.wc-properties-trigger { position: fixed; right: 0px; top: 0px; z-index: 10001; }
-	.wc-properties-trigger a { display: block; position: absolute; top: 0; right: 0; width: 32px; height: 32px; border: 16px solid white; border-left-color: transparent; border-bottom-color: transparent; }
-	.wc-properties-trigger a i { position: absolute; top: -12px; right: -18px; color: black; }
-	
-	.wc-properties .wc-tabs {
-		width: 100%;
-		list-style: none;
-		margin: 0;
-		padding: 0;
-	}
-	
-	.wc-properties .wc-tabs li {
-		display: table-cell;
-		width: 1%;
-		float: none;
-		position: relative;
-	}
-	
-	.wc-properties .wc-tabs li a {
-		border: 2px solid black;
-		border-top-width: 0;
-		background-color: rgba(0,0,0,0.5);
-		text-align: center;
-		line-height: 1.42857143;
-		position: relative;
-		display: block;
-		padding: 10px 15px;
-		text-decoration: none;
-		color: rgba(255,255,255,0.75);
-		text-shadow: 0 1px 0px rgba(0,0,0,.5)
-	}
-	
-	.wc-properties .wc-tabs li a:hover {
-		border-bottom-color: rgba(255,255,255,0.25);
-		color: white;
-	}
-	
-	.wc-properties .wc-tabs li.active a {
-		background-color: transparent;
-		border-color: transparent;
-		border-bottom-color: rgba(255,255,255,0.9);
-		color: white;
-	}
-	
-	.wc-properties { }
-	.wc-properties.panel .list-group-item { background-color: transparent; padding: 15px; border: 0; border-bottom: 2px solid black; }
-	.wc-properties .list-group-item:last-child { border-bottom-width: 0; }
-	
-	.list-group-item > dl { margin: 0; }
-	.list-group-item > dl > dt { margin: 0; text-transform: uppercase; font-size: 12px; font-weight: bold; margin-top: 15px; }
-	.list-group-item > dl > dd { margin: 0; padding: 0; }
-	.list-group-item > dl > dd:last-child { padding-bottom: 0; }
-	
-	.wc-properties h5 { text-transform: uppercase; font-size: 12px; font-weight: bold; margin-top: 20px; }
-	
-	.wc-dn { border-radius: 0; background-color: rgba(255,255,255,0.5); border: none; border-left: 3px solid red; }
-	.wc-dn.wc-dn-ok { border-left-color: green; }
-	.wc-dn.wc-dn-ng { border-left-color: #f0ad4e; }
-	.wc-dn label { display: block; font-weight: bold; text-transform: uppercase; cursor: inherit; }
-	.wc-dn a { color: white; text-shadow: 0 1px 0px rgba(0,0,0,.5); border-radius: 0; }
-	.wc-dn a:hover { color: black; text-shadow: none; border-radius: 0; }
-	.wc-dn .progress { margin: 5px 0; height: 6px; border-radius: 0; }
-	
-	.wc-properties .alert { margin-top: 10px; margin-bottom: 0; }
-	.wc-properties .alert:first-child { margin-top: 0; }
-	
-	/*
-	.wc-properties .panel-heading menu li a { color: rgba(255,255,255,0.75); background-color: transparent; border: 2px solid transparent; border-top-width: 0; border-bottom-color: black; border-radius: 0; }
-	.wc-properties .panel-heading menu li:first-child a { border-left-width: 0; }
-	.wc-properties .panel-heading menu li:last-child a { border-right-width: 0; }
-	.wc-properties .panel-heading menu li + li a { border-left-color: transparent; } 
-	.wc-properties .panel-heading menu li.active + li a { border-left-color: black; } 
-	.wc-properties .panel-heading menu li.active a { color: rgba(255,255,255,0.75); border-bottom-color: transparent; }
-	.wc-properties .panel-heading menu li a:hover, .wc-properties .panel-heading .nav li a:selected { border-width: 2px; border-top-width: 0; border-top-color: transparent; }
-	.wc-properties .panel-heading menu li a:active {  }
-	.wc-properties .panel-heading menu {  }
-	*/
-	
-	.nav-pills.actions li a { background-color: rgba(255, 255, 255, 0.25); color: white; font-weight: bold; text-shadow: 0 1px 0px rgba(0,0,0,.5); font-weight: bold; }
-	.nav-pills.actions li a:hover { background-color: rgba(255, 255, 255, 0.75); color: black; text-shadow: 0 1px 0px rgba(255,255,255,.5); }
-	
-	.wc-properties .list-group-item { overflow: hidden; }
-	
-	.wc-ld { position: absolute; right: 15px; top: 15px; opacity: 0; -webkit-transition: opacity .5s ease-in-out, -webkit-transform .5s ease-in-out; text-shadow: none; -webkit-transform: scale(0); }
-	.loading .wc-ld { opacity: 1; right: 15px; -webkit-transform: scale(1); }
-	.loaded .wc-ld { -webkit-transform: scale(2); }
-	.wc-properties h4 {  }
-	.wc-properties h4 > i { float: right; }
-	.loading h4 > i { opacity: 0; -webkit-transition: opacity .5s ease-in-out, -webkit-transform .5s ease-in-out; -webkit-transform: scale(0); }
-	.loaded h4 > i { opacity: 1; -webkit-transition: .5s opacity .25s ease-in-out, .5s -webkit-transform .25s ease-in-out; -webkit-transform: scale(1); }
-	
-	.loading .content { position: relative; margin-top: -100%; opacity: 0; -webkit-transition: 1s opacity ease-in-out, 1s margin-top ease-in-out; }
-	.loaded .content { position: relative; margin-top: 0; opacity: 1; -webkit-transition: 1s opacity ease-in-out, 1s margin-top ease-in-out; }
-	
-	.wc-cfg-flist { margin: 0; }
-	.wc-cfg-flist menu { margin: 0 0 0 25px; }
-	.wc-cfg-flist a { display: block; margin: 0 -15px; border-bottom: 1px solid black; padding: 10px 15px; color: rgba(255,255,255,0.75); }
-	.wc-cfg-flist a i { color: rgba(255,255,255,0.5); }
-	.wc-cfg-flist a:hover { text-decoration: none; color: white; }
-	.wc-cfg-flist a:hover i { text-decoration: none; color: white; }
-</style>
 
 : flush
 
@@ -374,6 +171,7 @@ article > :last-child section a { font-weight: bold; margin-left: 20px; }
 		
 		: flush
 		
+		: if asset.content
 		<ul class="tab-pane list-group" id="wc-cfg-block" role="tabpanel">
 			<li class="list-group-item">
 				<h4>
@@ -400,6 +198,7 @@ article > :last-child section a { font-weight: bold; margin-left: 20px; }
 				</dl>
 			</li>
 		</ul>
+		: end
 		
 		: flush
 		
@@ -519,5 +318,6 @@ article > :last-child section a { font-weight: bold; margin-left: 20px; }
 	
 </div>
 <div class="wc-properties-trigger"><a href="#"><i class="fa fa-pencil fa-flip-horizontal fa-lg fa-fw"></i></a></div>
+</article>
 
 : end
