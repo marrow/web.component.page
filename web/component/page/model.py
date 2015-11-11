@@ -60,6 +60,6 @@ class Page(Asset):
 
 _blocks = PluginManager('web.page.block')
 
-#for _block in PluginManager('web.page.block'):
-#	print("Found block: " + repr(_block))
-#	
+if __debug__:
+	for _block in _blocks:
+		print("Found block: " + repr(_block))
