@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-import pkg_resources
+from pkg_resources import iter_entry_points
 
 from bson import ObjectId
 from mongoengine import EmbeddedDocument, ObjectIdField, EmbeddedDocumentField, ListField, StringField, ReferenceField, MapField, URLField, ImageField
