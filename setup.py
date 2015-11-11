@@ -135,7 +135,7 @@ setup(
 			'pytz',  # timzone support
 			'blinker',  # signals
 			'markupsafe',  # injection protection
-			'cinje',  # high-performance streaming template engine
+			'cinje-develop',  # high-performance streaming template engine
 			'babel',  # internationalization and localization
 		],
 	
@@ -152,7 +152,7 @@ setup(
 	tests_require = tests_require,
 	
 	dependency_links = [
-			#'git+https://github.com/mongoengine/mongoengine.git@master#egg=mongoengine-0.9',
+			'git+https://github.com/marrow/cinje.git@develop#egg=cinje-develop',
 		],
 	
 	zip_safe = True,
