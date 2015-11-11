@@ -7,6 +7,6 @@
 	: classes.add('col-md-' + str(block.properties.width))
 : end
 
-<section&{id=block.properties.get('id', block.id), class_=classes, data_block=block.id, data_format=block.format, contenteditable="true"}>
+<section&{id=block.properties.get('id', block.id), class_=classes, data_block=block.id, data_format=block.format, data_editable="yes"}>
 	#{content}
 </section>
