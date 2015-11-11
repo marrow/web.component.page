@@ -5,9 +5,6 @@ import pkg_resources
 from bson import ObjectId
 from mongoengine import EmbeddedDocument, ObjectIdField, EmbeddedDocumentField, ListField, StringField, ReferenceField, MapField, URLField, ImageField
 
-from marrow.package.host import PluginManager
-from marrow.package.loader import load
-
 from web.contentment.util import D_
 from web.contentment.util.model import Properties
 from web.component.page.block.base import Block
@@ -54,11 +51,7 @@ class Page(Asset):
 
 # Identify and register all blocks.
 
-#for _block in pkg_resources.iter_entry_points('web.page.block'):
-#	print("xxx Found block: " + repr(_block.load()))
-
-
-_blocks = PluginManager('web.page.block')
+_blocks = list(iter_entry_points('web.page.block'))
 
 if __debug__:
 	for _block in _blocks:
