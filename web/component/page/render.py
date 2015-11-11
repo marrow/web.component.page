@@ -1,5 +1,8 @@
 # encoding: cinje
 
+: from web.theme.bootstrap.base import page
+
+
 : def render_page_content page
 
 : width = 12
