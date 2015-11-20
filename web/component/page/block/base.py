@@ -17,7 +17,7 @@ class Block(EmbeddedDocument):
 	# Data Definition
 	
 	id = ObjectIdField(db_field='i', default=ObjectId) #, read=True, write=False)
-	properties = EmbeddedDocumentField(Properties, db_field='p', default=Properties) #, read=True, write=True)
+	properties = EmbeddedDocumentField(Properties, db_field='p', default=Properties, custom_data=Properties(simple=False)) #, read=True, write=True)
 	
 	# Visualization
 	
@@ -64,3 +64,9 @@ class Block(EmbeddedDocument):
 		return ""
 	
 	as_text = property(lambda self: self.__text__())
+
+	def __xml__(self):
+		from web.component.asset.templates import block
+		yield from block(self)
+
+	as_xml = property(lambda self: self.__xml__())
