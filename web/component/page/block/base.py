@@ -66,7 +66,7 @@ class Block(EmbeddedDocument):
 	as_text = property(lambda self: self.__text__())
 
 	def __xml__(self):
-		from web.component.asset.templates import block
+		from web.component.asset.xml.templates import block
 		yield from block(self)
 
 	as_xml = property(lambda self: self.__xml__())

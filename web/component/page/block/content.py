@@ -7,7 +7,7 @@ from web.contentment.util import D_
 from .base import Block
 from .content_ import render_text_block
 
-from web.component.asset.templates import text_block_content
+from web.component.asset.xml.templates import text_block_content
 from web.contentment.util.model import Properties
 
 
