@@ -17,7 +17,7 @@ class Block(EmbeddedDocument):
 	# Data Definition
 	
 	id = ObjectIdField(db_field='i', default=ObjectId) #, read=True, write=False)
-	properties = EmbeddedDocumentField(Properties, db_field='p', default=Properties, custom_data=Properties(simple=False)) #, read=True, write=True)
+	properties = EmbeddedDocumentField(Properties, db_field='p', default=Properties, custom_data=Properties(simple=False), verbose_name='property') #, read=True, write=True)
 	
 	# Visualization
 	
