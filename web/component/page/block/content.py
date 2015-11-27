@@ -8,7 +8,7 @@ from .base import Block
 from .content_ import render_text_block
 
 from web.component.asset.xml.templates import text_block_content
-from web.component.asset.xml.importers import translated_field
+from web.component.asset.xml.importers import text_block_content as text_block_content_importer
 from web.contentment.util.model import Properties
 
 
@@ -24,7 +24,7 @@ class TextBlock(Block):
 	}
 
 	__xml_importers__ = {
-		'content': translated_field,
+		'content': text_block_content_importer,
 	}
 	
 	content = MapField(StringField(), db_field='c', default=dict, custom_data=Properties(simple=False))  # TODO: TranslatedField.

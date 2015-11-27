@@ -7,6 +7,7 @@ from marrow.package.loader import load
 
 from web.component.asset import Asset
 from web.contentment.util.model import Properties
+from web.component.asset.xml.templates import block
 
 
 class Block(EmbeddedDocument):
@@ -65,8 +66,6 @@ class Block(EmbeddedDocument):
 	
 	as_text = property(lambda self: self.__text__())
 
-	def __xml__(self):
-		from web.component.asset.xml.templates import block
-		yield from block(self)
+	__xml__ = block
 
 	as_xml = property(lambda self: self.__xml__())
