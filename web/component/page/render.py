@@ -1,5 +1,13 @@
 # encoding: cinje
 
+: log = __import__('logging').getLogger(__name__)
+
+: try
+	: from pudb import post_mortem
+: except ImportError
+	: post_mortem = lambda: False
+: end
+
 : from web.theme.bootstrap.base import page
 
 
@@ -18,7 +26,12 @@
 <div class="row row-eq-height">
 	: end
 
+	: try
 	: use block.__html_stream__ context
+	: except
+	: log.exception("Error processing block: " + repr(block))
+	<b class="text-error">An unknown error occurred.</b>
+	: end
 : end
 
 </div>
