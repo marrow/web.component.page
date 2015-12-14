@@ -3,7 +3,7 @@
 : from orderedset import OrderedSet
 : from marrow.util.url import QueryString
 
-: def render_map_block block
+: def render_map_block context, block
 : """Render a Google Maps embed."""
 
 # Prepare HTML attributes for later emitting.

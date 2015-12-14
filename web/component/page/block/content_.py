@@ -1,6 +1,6 @@
 # encoding: cinje
 
-: def render_text_block block, content
+: def render_text_block context, block, content
 : classes = set(block.properties.get('cls', '').split())
 
 : if 'width' in block.properties

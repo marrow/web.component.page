@@ -3,7 +3,7 @@
 : from web.theme.bootstrap.base import page
 
 
-: def render_page_content page
+: def render_page_content context, page
 
 : width = 12
 <div class="row">
@@ -18,7 +18,7 @@
 <div class="row row-eq-height">
 	: end
 
-	: use block.as_stream
+	: use block.__html_stream__ context
 : end
 
 </div>
@@ -26,14 +26,14 @@
 : end
 
 
-: def render_page asset
+: def render_page context, asset
 : using page title=str(asset), styles=['/public/css/site.css'], scripts=['//cdn.ckeditor.com/4.5.4/full/ckeditor.js', '/public/js/site.js']
 
 : flush
 
 <article class="container">
 
-: use asset.as_stream
+: use asset.__html_stream__ context
 
 : flush
 

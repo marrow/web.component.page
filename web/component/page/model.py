@@ -42,8 +42,8 @@ class Page(Asset):
 				contents = [i.as_json for i in self.content]  # Capture child nodes.
 			)
 	
-	def __html_stream__(self):
-		return render_page_content(self)
+	def __html_stream__(self, context=None):
+		return render_page_content(context, self)
 	
 	def __text__(self):
 		return '\n\n'.join(i.as_text for i in self.content)

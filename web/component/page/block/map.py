@@ -56,8 +56,8 @@ class MapBlock(Block):
 				zoom = self.zoom,
 			)
 	
-	def __html_stream__(self):
-		return render_map_block(self)
+	def __html_stream__(self, context=None):
+		return render_map_block(context, self)
 	
 	def __text__(self):
 		return self.target.__text__()

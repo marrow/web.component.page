@@ -50,7 +50,7 @@ class Block(EmbeddedDocument):
 	
 	as_json = property(lambda self: self.__json__())
 	
-	def __html_stream__(self):
+	def __html_stream__(self, context=None):
 		return []
 	
 	as_stream = property(lambda self: self.__html_stream__)  # Note: doesn't call!

@@ -35,8 +35,8 @@ class VideoBlock(Block):
 				video = self.video,
 			)
 	
-	def __html_stream__(self):
-		return render_video_block(self)
+	def __html_stream__(self, context=None):
+		return render_video_block(context, self)
 	
 	def __text__(self):
 		return self.target.__text__()

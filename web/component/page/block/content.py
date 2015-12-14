@@ -20,8 +20,8 @@ class TextBlock(Block):
 	
 	# Data Portability
 	
-	def __html_stream__(self):
-		return render_text_block(self, D_(self.content))
+	def __html_stream__(self, context=None):
+		return render_text_block(context, self, D_(self.content))
 	
 	def __json__(self):
 		return dict(super(TextBlock, self).as_json,

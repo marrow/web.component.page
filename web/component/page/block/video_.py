@@ -3,7 +3,7 @@
 : from orderedset import OrderedSet
 : from marrow.util.url import QueryString
 
-: def render_video_block block
+: def render_video_block context, block
 : """Render a YouTube video embed."""
 
 : classes = OrderedSet(block.properties.get('cls', '').split() + ['block', 'video'])
