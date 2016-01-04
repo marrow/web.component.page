@@ -51,7 +51,8 @@ class Page(Asset):
 			if not isinstance(chunk, participants):
 				continue
 			
-			yield chunk.__references__()
+			for reference in chunk.__references__():
+				yield reference
 	
 	# Data Portability
 	
