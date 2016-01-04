@@ -16,6 +16,9 @@ class ReferenceBlock(Block):
 	target = ReferenceField('Asset', db_field='t', required=True)
 	handler = StringField(db_field='h', default='__embed__')
 	
+	def __references__(self):
+		return self.target.id if hasattr(self.target, 'id') else self.target
+	
 	# Python Methods
 	
 	def __str__(self):

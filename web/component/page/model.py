@@ -4,6 +4,7 @@ from pkg_resources import iter_entry_points
 
 from bson import ObjectId
 from mongoengine import EmbeddedDocument, ObjectIdField, EmbeddedDocumentField, ListField, StringField, ReferenceField, MapField, URLField, ImageField
+from mongoengine.base import get_document
 
 from web.contentment.util import D_
 from web.contentment.util.model import Properties
@@ -34,6 +35,23 @@ class Page(Asset):
 		
 		for child in self.children:
 			child.tree(indent + '    ')
+	
+	# Useful for rapidly loading assets that would be lazily loaded later anyway.
+	# For example, during page rendering, or during page export to a static mirror.
+	
+	def __references__(self):
+		"""Identify the references to all assets required for rendering this page."""
+		
+		# First, we identify the Block subclasses that might reference another Asset.
+		participants = tuple(j for j in (get_document(i) for i in Block._subclasses) if hasattr(j, '__references__'))
+		
+		content = self.__class__.objects.no_dereference().scalar('content').get(id=self.id)
+		
+		for chunk in content:
+			if not isinstance(chunk, participants):
+				continue
+			
+			yield chunk.__references__()
 	
 	# Data Portability
 	
