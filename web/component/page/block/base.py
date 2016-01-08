@@ -7,6 +7,7 @@ from marrow.package.loader import load
 
 from web.component.asset import Asset
 from web.contentment.util.model import Properties
+from web.component.asset.xml.templates import block
 
 
 class Block(EmbeddedDocument):
@@ -17,7 +18,7 @@ class Block(EmbeddedDocument):
 	# Data Definition
 	
 	id = ObjectIdField(db_field='i', default=ObjectId) #, read=True, write=False)
-	properties = EmbeddedDocumentField(Properties, db_field='p', default=Properties) #, read=True, write=True)
+	properties = EmbeddedDocumentField(Properties, db_field='p', default=Properties, custom_data=Properties(simple=False), verbose_name='property') #, read=True, write=True)
 	
 	# Visualization
 	
@@ -64,3 +65,7 @@ class Block(EmbeddedDocument):
 		return ""
 	
 	as_text = property(lambda self: self.__text__())
+
+	__xml__ = block
+
+	as_xml = property(lambda self: self.__xml__())

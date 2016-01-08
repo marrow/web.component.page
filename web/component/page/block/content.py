@@ -7,6 +7,10 @@ from web.contentment.util import D_
 from .base import Block
 from .content_ import render_text_block
 
+from web.component.asset.xml.templates import text_block_content
+from web.component.asset.xml.importers import text_block_content as text_block_content_importer
+from web.contentment.util.model import Properties
+
 
 class DescriptionBlock(Block):
 	__icon__ = 'asterisk'
@@ -14,8 +18,16 @@ class DescriptionBlock(Block):
 
 class TextBlock(Block):
 	__icon__ = 'font'
+
+	__xml_exporters__ = {
+		'content': text_block_content,
+	}
+
+	__xml_importers__ = {
+		'content': text_block_content_importer,
+	}
 	
-	content = MapField(StringField(), db_field='c', default=dict)  # TODO: TranslatedField.
+	content = MapField(StringField(), db_field='c', default=dict, custom_data=Properties(simple=False))  # TODO: TranslatedField.
 	format = StringField(db_field='f', default='html', choices=['html', 'textile', 'md', 'rest'])  # TODO: Dynamic.
 	
 	# Data Portability

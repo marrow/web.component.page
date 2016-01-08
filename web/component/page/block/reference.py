@@ -7,13 +7,15 @@ from marrow.package.loader import load
 from .base import Block
 from .reference_ import render_reference_block
 
+from web.contentment.util.model import Properties
+
 
 class ReferenceBlock(Block):
 	__icon__ = 'link'
 	
 	# Data Definition
 	
-	target = ReferenceField('Asset', db_field='t', required=True)
+	target = ReferenceField('Asset', db_field='t', required=True, custom_data=Properties(simple=False))
 	handler = StringField(db_field='h', default='__embed__')
 	
 	def __references__(self):
