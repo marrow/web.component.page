@@ -1,8 +1,13 @@
 # encoding: cinje
 
 : def render_reference_block context, block, content
+: classes = set(block.properties.get('cls', '').split())
 
-<div&{id=block.properties.get('id', block.id), class_=block.properties.get('cls', None)}>
+: if 'width' in block.properties
+	: classes.add('col-md-' + str(block.properties.width))
+: end
+
+<div&{id=block.properties.get('id', block.id), class_=classes}>
 : if callable(content)
 	: use content context
 : else
