@@ -11,4 +11,4 @@ class PageController(AssetController):
 		return render_page(self._ctx, self._doc)
 	
 	def __embed__(self, reference=None):
-		return self._doc.as_html
+		return self._doc.__html_stream__(self._ctx)
