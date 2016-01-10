@@ -8,5 +8,9 @@
 : end
 
 <section&{id=block.properties.get('id', block.id), class_=classes, data_block=block.id, data_format=block.format, data_editable="yes"}>
-	#{content}
+: if getattr(context, 'replacements', None)
+	: _buffer.append(content.format(**context.replacements))
+: else
+	: _buffer.append(content)
+: end
 </section>
