@@ -37,7 +37,7 @@
 		
 		: if width and not columns
 			: columns = True
-<div class="content row-fluid clearfix">
+<div class="container row-fluid clearfix">
 		: end
 		
 		: use render_block context, page, block
@@ -46,7 +46,6 @@
 			: width = 12
 			: if columns
 				: columns = False
-	
 </div>
 			: end
 		: end
@@ -62,26 +61,24 @@
 
 : def render_page context, asset
 
-# First, we work out what the title should look like.
-: title = [str(asset), str(context.croot)]
-: if context.croot.properties.get('direction', 'rtl') == 'ltr'
-	: title.reverse()
-: end
-: title = context.croot.properties.get('separator', ' - ').join(title)
-: title = title.upper() if context.croot.properties.get('titlecase', 'normal') == 'upper' else title
-
-: using context.theme title=title, styles=['/public/css/site.css'], scripts=['/public/js/site.js']
+	# First, we work out what the title should look like.
+	: title = [str(asset), str(context.croot)]
+	: if context.croot.properties.get('direction', 'rtl') == 'ltr'
+		: title.reverse()
+	: end
+	: title = context.croot.properties.get('separator', ' - ').join(title)
+	: title = title.upper() if context.croot.properties.get('titlecase', 'normal') == 'upper' else title
+	
+	: using context.theme title=title, styles=['/public/css/site.css'], scripts=['/public/js/site.js'], lang=context.lang
 
 <article>
 
-: flush
+	: flush
 
-: for chunk in asset.__html_stream__(context)
-	: yield chunk
-: end
+	: for chunk in asset.__html_stream__(context)
+		: yield chunk
+	: end
 
 </article>
-
-: end
 
 : end
