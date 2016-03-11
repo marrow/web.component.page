@@ -31,7 +31,7 @@ class VideoBlock(Block):
 	# Data Portability
 	
 	def __json__(self):
-		return dict(super(MapBlock, self).as_json,
+		return dict(super(VideoBlock, self).as_json,
 				video = self.video,
 			)
 	
