@@ -27,7 +27,7 @@ class TextBlock(Block):
 		'content': text_block_content_importer,
 	}
 	
-	content = MapField(StringField(), db_field='c', default=dict, custom_data=Properties(simple=False))  # TODO: TranslatedField.
+	content = MapField(StringField(), db_field='c', default=dict, simple=False)  # TODO: TranslatedField.
 	format = StringField(db_field='f', default='html', choices=['html', 'textile', 'md', 'rest'])  # TODO: Dynamic.
 	
 	# Data Portability

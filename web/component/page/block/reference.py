@@ -15,7 +15,7 @@ class ReferenceBlock(Block):
 	
 	# Data Definition
 	
-	target = ReferenceField('Asset', db_field='t', required=True, custom_data=Properties(simple=False))
+	target = ReferenceField('Asset', db_field='t', required=True, simple=False)
 	handler = StringField(db_field='h', default='__embed__')
 	
 	# Python Methods

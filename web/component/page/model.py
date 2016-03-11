@@ -21,7 +21,7 @@ class Page(Asset):
 	__icon__ = 'file-text-o'
 	__fulltext__ = dict(Asset.__fulltext__, as_text=2.5)
 	
-	content = ListField(EmbeddedDocumentField(Block), db_field='p_c', default=list, custom_data=Properties(simple=False))
+	content = ListField(EmbeddedDocumentField(Block), db_field='p_c', default=list, simple=False)
 	handler = StringField(db_field='a_h', default='web.component.page.controller:PageController')  # TODO: PythonReferenceField
 	
 	# Visualization
