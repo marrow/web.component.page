@@ -120,7 +120,6 @@ setup(
 					
 					# markup engines
 					#'texting = web.component.page.render.texting:TextingRenderer [texting]',
-					'textile = web.component.page.render.textile:TextileRenderer [textile]',
 					#'markdown = web.component.page.render.markdown:MarkdownRenderer [markdown]',
 					'bbcode = web.component.page.render.bbcode:BBCodeRenderer [bbcode]',
 					#' = web.component.page.render.:Renderer',
@@ -143,7 +142,6 @@ setup(
 			development = tests_require,
 			
 			# TBD: Required by various sub-components.
-			textile = ['textile'],
 			texting = ['marrow.texting'],
 			markdown = ['markdown'],
 			bbcode = ['bbcode'],
