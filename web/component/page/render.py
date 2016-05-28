@@ -1,6 +1,7 @@
 # encoding: cinje
 
 : import traceback
+: from marrow.package.canonical import name
 
 
 : log = __import__('logging').getLogger(__name__)
@@ -70,7 +71,7 @@
 	
 	: using context.theme title=title, styles=['/public/css/site.css'], scripts=['/public/js/site.js'], lang=context.lang
 
-<article>
+<article data-theme="${name(context.theme)}">
 
 	: flush
 

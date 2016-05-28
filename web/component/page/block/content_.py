@@ -7,7 +7,7 @@
 	: classes.add('col-md-' + str(block.properties.width))
 : end
 
-<section&{id=block.properties.get('id', block.id), class_=classes, data_block=block.id, data_format=block.format, data_editable="yes"}>
+<section&{id=block.properties.get('id', block.id), class_=classes, data_block=block.id, data_format=block.format, data_editable="yes", data_asset=block._instance.path}>
 : if getattr(context, 'replacements', None)
 	: _buffer.append(content.format(**context.replacements))
 : else

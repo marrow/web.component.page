@@ -21,8 +21,8 @@ log = __import__('logging').getLogger(__name__)
 class Page(Asset):
 	__icon__ = 'file-text-o'
 	
-	content = ListField(EmbeddedDocumentField(Block), db_field='p_c', default=list, simple=False)
-	handler = StringField(db_field='a_h', default='web.component.page.controller:PageController')  # TODO: PythonReferenceField
+	content = ListField(EmbeddedDocumentField(Block), default=list, simple=False)
+	handler = StringField(default='web.component.page.controller:PageController')  # TODO: PythonReferenceField
 	
 	# Visualization
 	

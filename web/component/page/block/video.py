@@ -26,7 +26,7 @@ class VideoBlock(Block):
 			"satellite",
 		]
 	
-	video = StringField(db_field='v')
+	video = StringField()
 	
 	# Data Portability
 	

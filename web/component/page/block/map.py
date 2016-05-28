@@ -26,16 +26,16 @@ class MapBlock(Block):
 			"satellite",
 		]
 	
-	kind = StringField(db_field='k', required=True, default='place', choices=KINDS)
-	style = StringField(db_field='s', required=True, default='roadmap', choices=STYLES)
+	kind = StringField(required=True, default='place', choices=KINDS)
+	style = StringField(required=True, default='roadmap', choices=STYLES)
 	
-	query = StringField(db_field='mq')
-	origin = StringField(db_field='mo')
-	destination = StringField(db_field='md')
-	avoid = StringField(db_field='ma', default=None)  # tolls|ferries|highways
+	query = StringField()
+	origin = StringField()
+	destination = StringField()
+	avoid = StringField(default=None)  # tolls|ferries|highways
 	
-	center = PointField(db_field='mc', default=None, auto_index=False)
-	zoom = IntField(db_field='mz', default=None, min_value=0, max_value=21)
+	center = PointField(default=None, auto_index=False)
+	zoom = IntField(default=None, min_value=0, max_value=21)
 	
 	# Python Methods
 	
