@@ -2,6 +2,7 @@
 
 : def render_text_block context, block, content
 : classes = set(block.properties.get('cls', '').split())
+: classes.add('wc-content')
 
 : if 'width' in block.properties
 	: classes.add('col-md-' + str(block.properties.width))
