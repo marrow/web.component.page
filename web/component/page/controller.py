@@ -32,7 +32,7 @@ class BlockController:
 
 class PageController(AssetController):
 	def __call__(self):
-		return flatten(render_page(self._ctx, self._doc))
+		return render_page(self._ctx, self._doc)
 	
 	def __embed__(self, reference=None):
 		return self._doc.__html_stream__(self._ctx)
