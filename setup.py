@@ -129,6 +129,7 @@ setup(
 	install_requires = [
 			#'web.template<3.0.0',  # extensible template engine support
 			'marrow.package<2.0',  # dynamic execution and plugin management
+			'web.dispatch.resource',  # verb-based restful API
 			'WebOb',  # HTTP request and response objects, and HTTP status code exceptions
 			'mongoengine',  # database layer
 			'pytz',  # timzone support

@@ -26,12 +26,14 @@ class Page(Asset):
 	
 	# Content Manipulation
 	
-	def insert_block(self, content, index=None):
+	def insert_block(self, content, index=None, create=True):
 		"""Add a block to the page, either at the end of the available blocks, or at a specific index."""
 		# TODO: Allow for insertion of multiple blocks using iterable ABC.
 		
 		content = content.to_mongo() if hasattr(content, 'to_mongo') else content
-		content['id'] = ObjectId()  # Ensure we always have a unique ID.
+		
+		if create:
+			content['id'] = ObjectId()  # Ensure we always have a unique ID.
 		
 		update = {
 				'$push': {
@@ -80,7 +82,7 @@ class Page(Asset):
 		if index:
 			id = self.content[index].id
 		
-		return self.update(pull__content={'id': id})
+		return self._collection.update_one({'_id': self.id}, {'$pull': {'content': {'id': id}}})
 	
 	def move_block(self, id, index):
 		"""Move a block to a new index.
@@ -92,7 +94,7 @@ class Page(Asset):
 		coll = self.__class__._get_collection()
 		block = coll.find_one({'_id': self.id, 'content.id': id}, {'content.$': 1})['content'][0]
 		self.remove_block(id)
-		self.insert_block(block, index)
+		self.insert_block(block, index, create=False)
 	
 	# Visualization
 	

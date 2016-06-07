@@ -1,5 +1,7 @@
 # encoding: cinje
 
+: from web.core import local
+
 : def base_block_list_item block, wrap=False
 	<li&{data_id=block.id}>
 		<label&{class_={'fa', 'fa-' + block.__icon__}}>
@@ -12,6 +14,7 @@
 			<tt>${str(block.properties.get('id', block.id))}</tt>
 		</a>
 		: end
+		<a&{href=local.context.asset.path + '/' + str(block.id), class_={'fa', 'fa-times'}, data_verb='delete', data_trigger='block-deleted'}><span class="sr-only"> Delete</span></a>
 	</li>
 : end
 
