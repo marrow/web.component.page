@@ -10,6 +10,7 @@
 
 <section&{id=block.properties.get('id', block.id), class_=classes}>
 	<div &{data_block=block.id, data_format=block.format, data_editable="yes", data_asset=block._instance.path}>
+		: print("Replacements:", repr(getattr(context, 'replacements', None)))
 		: if getattr(context, 'replacements', None)
 			: _buffer.append(content.format(**context.replacements))
 		: else

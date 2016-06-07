@@ -21,8 +21,78 @@ log = __import__('logging').getLogger(__name__)
 class Page(Asset):
 	__icon__ = 'file-text-o'
 	
-	content = ListField(EmbeddedDocumentField(Block), default=list, simple=False)
-	handler = StringField(default='web.component.page.controller:PageController')  # TODO: PythonReferenceField
+	content = ListField(EmbeddedDocumentField(Block), default=list, simple=False, read=True, write=True)
+	handler = StringField(default='web.component.page.controller:PageController', read=True, write=False)  # TODO: PythonReferenceField
+	
+	# Content Manipulation
+	
+	def insert_block(self, content, index=None):
+		"""Add a block to the page, either at the end of the available blocks, or at a specific index."""
+		# TODO: Allow for insertion of multiple blocks using iterable ABC.
+		
+		content = content.to_mongo() if hasattr(content, 'to_mongo') else content
+		content['id'] = ObjectId()  # Ensure we always have a unique ID.
+		
+		update = {
+				'$push': {
+						'content': {'$each': [content]}
+					}
+			}
+		
+		if index is not None:
+			update['$push']['content']['$position'] = index
+		
+		return self.update(__raw__=update)
+	
+	def update_block(self, id=None, index=None, raw=None, **kw):
+		"""Update a block on a page by ID or index using MongoEngine-alike semantics.
+		
+		Passing a `raw` value will merge it with the overall Page query, not the block-speicifc one, allowing for
+		additional conditional criteria about the surrounding page.
+		"""
+		if id is None and index is None:
+			raise ValueError()
+		
+		if id is not None and index is not None:
+			raise ValueError()
+		
+		ops = ('set', 'unset', 'inc', 'dec', 'push', 'push_all', 'pop', 'pull', 'pull_all', 'add_to_set')
+		update = dict()
+		
+		for key, value in kw.items():
+			parts = key.split('__')
+			parts.insert(1 if parts[0] in ops else 0, 'content__$' if id else 'content__' + str(index))
+			update['__'.join(parts)] = value
+		
+		if raw:
+			update.update(raw)
+		
+		return self.__class__.objects(id=self.id, content__id=id).update(**update)
+	
+	def remove_block(self, id=None, index=None):
+		"""Remove a block by id or index."""
+		if id is None and index is None:
+			raise ValueError()
+		
+		if id is not None and index is not None:
+			raise ValueError()
+		
+		if index:
+			id = self.content[index].id
+		
+		return self.update(pull__content={'id': id})
+	
+	def move_block(self, id, index):
+		"""Move a block to a new index.
+		
+		NOTE: The new index is post-removal, i.e. it does not adjust if the insertion point is after the original index.
+		"""
+		
+		# TODO: Apply this in a single operation.
+		coll = self.__class__._get_collection()
+		block = coll.find_one({'_id': self.id, 'content.id': id}, {'content.$': 1})['content'][0]
+		self.remove_block(id)
+		self.insert_block(block, index)
 	
 	# Visualization
 	

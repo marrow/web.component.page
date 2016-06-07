@@ -5,13 +5,14 @@ from mongoengine import StringField, ReferenceField
 from marrow.package.loader import load
 
 from .base import Block
-from .reference_ import render_reference_block
+from .reference_ import reference_block_list_item, render_reference_block
 
 from web.contentment.util.model import Properties
 
 
 class ReferenceBlock(Block):
 	__icon__ = 'link'
+	_block_list_item = reference_block_list_item
 	
 	# Data Definition
 	

@@ -1,8 +1,6 @@
 # encoding: utf-8
 
-from mongoengine import StringField, ReferenceField, PointField, IntField
-
-from marrow.package.loader import load
+from mongoengine import StringField
 
 from .base import Block
 from .video_ import render_video_block
@@ -26,7 +24,7 @@ class VideoBlock(Block):
 			"satellite",
 		]
 	
-	video = StringField()
+	video = StringField(read=True, write=True)
 	
 	# Data Portability
 	
