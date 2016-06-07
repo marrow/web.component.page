@@ -26,7 +26,6 @@ class BlockResource:
 			return self._update_index(index)
 	
 	def delete(self):
-		__import__('pudb').set_trace()
 		result = self._page.remove_block(id=self._reference)
 		return {'ok': True, 'deleted': self._page.path + '/' + str(self._reference)}
 	
@@ -57,13 +56,16 @@ class PageController(AssetController):
 		return self._doc.__html_stream__(self._ctx)
 	
 	def __getitem__(self, reference):
+		if self._ctx.domain != 'illicohodes.com':  # Fair chunk of private code for the moment.  :(
+			raise KeyError()
+		
 		try:
 			reference = ObjectId(reference)
 		except:
 			raise KeyError()
 		
 		if reference not in (i.id for i in self._doc.content):
-			raise AttributeError()
+			raise KeyError()
 		
 		log.debug("Loaded page block.", extra=dict(request=id(self._ctx), page=str(self._doc.id), block=str(reference)))
 		
