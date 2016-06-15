@@ -6,12 +6,13 @@ from bson import ObjectId
 from mongoengine import EmbeddedDocument, ObjectIdField, EmbeddedDocumentField, ListField, StringField, ReferenceField, MapField, URLField, ImageField
 from mongoengine.base import get_document
 
+from web.core import local
 from web.contentment.util import D_
 from web.contentment.util.model import Properties
 from web.component.page.block.base import Block
 
 from ..asset import Asset
-from .render import render_page_content
+from .render import render_page_panel, render_page_content
 
 
 log = __import__('logging').getLogger(__name__)
@@ -19,10 +20,28 @@ log = __import__('logging').getLogger(__name__)
 
 
 class Page(Asset):
+	# Field Definitions
+	
+	content = ListField(
+			EmbeddedDocumentField(Block),
+			default = list,
+			simple = False,
+			read = True,
+			write = True
+		)
+	
+	handler = StringField(
+			default = 'web.component.page.controller:PageController',
+			read = True,
+			write = False
+		)  # TODO: PythonReferenceField
+	
+	# Contentment Panel Protocols
+	
 	__icon__ = 'file-text-o'
 	
-	content = ListField(EmbeddedDocumentField(Block), default=list, simple=False, read=True, write=True)
-	handler = StringField(default='web.component.page.controller:PageController', read=True, write=False)  # TODO: PythonReferenceField
+	def __page_panel__(self, wrap=False):
+		return render_page_panel(local.context, self, wrap)
 	
 	# Content Manipulation
 	

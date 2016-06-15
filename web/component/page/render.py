@@ -3,12 +3,29 @@
 : import traceback
 : from marrow.package.canonical import name
 
-
 : log = __import__('logging').getLogger(__name__)
 
 
+: def render_page_panel context, page, wrap
+	: from web.component.asset.render import render_asset_panel
+	: using render_asset_panel context, page, True
+		<li class="list-group-item" id="wc-blocks">
+			<h4>
+				Block Structure
+				<a href="#" style="display: inline-block; margin: -10px;"><sup style="display: inline-block; padding: 10px 10px 0;"><i class="fa fa-question-circle small"></i></sup></a>
+			</h4>
+			
+			<menu class="" id="wc-page-blocks" data-asset="${context.asset.path}">
+				: for block in page.content
+					: use block._block_list_item
+				: end
+			</menu>
+		</li>
+	: end
+: end
+
+
 : def render_block context, page, block
-	<!-- ${repr(block)} -->
 	: try
 		: use block.__html_stream__ context
 	: except
@@ -23,8 +40,6 @@
 
 
 : def render_page_content context, page
-	<!-- ${repr(page)} -->
-	
 	# Load page content if not already loaded.
 	: content = page.content if page.content else page.__class__.objects.scalar('content').get(id=page.id)
 	
