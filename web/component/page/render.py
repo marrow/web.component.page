@@ -83,8 +83,11 @@
 	: end
 	: title = context.croot.properties.get('separator', ' - ').join(title)
 	: title = title.upper() if context.croot.properties.get('titlecase', 'normal') == 'upper' else title
+	: classes = set()
+	: classes.update(context.croot.properties.get('cls', '').split())
+	: classes.update(asset.properties.get('cls', '').split())
 	
-	: using context.theme title=title, styles=['/public/css/site.css'], scripts=['/public/js/site.js'], lang=context.lang
+	: using context.theme title=title, styles=['/public/css/site.css'], scripts=['/public/js/site.js'], lang=context.lang, class_=classes
 
 <article data-theme="${name(context.theme)}">
 
