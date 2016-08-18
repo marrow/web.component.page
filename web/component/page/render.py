@@ -87,7 +87,7 @@
 	: classes.update(context.croot.properties.get('cls', '').split())
 	: classes.update(asset.properties.get('cls', '').split())
 	
-	: using context.theme title=title, styles=['/public/css/site.css'], scripts=['/public/js/site.js'], lang=context.lang, class_=classes
+	: using context.theme context, title=title, styles=['/public/css/site.css'], scripts=['/public/js/site.js'], lang=context.lang, class_=classes
 
 <article data-theme="${name(context.theme)}">
 
