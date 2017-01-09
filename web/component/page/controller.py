@@ -56,8 +56,8 @@ class PageController(AssetController):
 		return self._doc.__html_stream__(self._ctx)
 	
 	def __getitem__(self, reference):
-		if self._ctx.domain != 'illicohodes.com':  # Fair chunk of private code for the moment.  :(
-			raise KeyError()
+		if not self._ctx.uid:
+			return None
 		
 		try:
 			reference = ObjectId(reference)
