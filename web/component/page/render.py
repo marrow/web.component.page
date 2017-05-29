@@ -86,8 +86,12 @@
 	: classes = set()
 	: classes.update(context.croot.properties.get('cls', '').split())
 	: classes.update(asset.properties.get('cls', '').split())
+	: styles = context.croot.properties.get('styles', 'site').split()
+	: styles = ['/public/css/{}.css'.format(i) for i in styles]
+	: scripts = context.croot.properties.get('scripts', 'site').split()
+	: scripts = ['/public/js/{}.js'.format(i) for i in scripts]
 	
-	: using context.theme context, title=title, styles=['/public/css/site.css'], scripts=['/public/js/site.js'], lang=context.lang, class_=classes
+	: using context.theme context, title=title, styles=styles, scripts=scripts, lang=context.lang, class_=classes
 
 <article data-theme="${name(context.theme)}">
 
