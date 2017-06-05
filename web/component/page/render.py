@@ -45,6 +45,7 @@
 	
 	: columns = False
 	: width = 12
+	: group = None
 	
 	: for block in page.content
 		: size = block.properties.get('width', 12)
@@ -52,7 +53,7 @@
 		
 		: if width and not columns
 			: columns = True
-<div class="container row-fluid clearfix">
+<section class="horizontal">
 		: end
 		
 		: use render_block context, page, block
@@ -61,7 +62,7 @@
 			: width = 12
 			: if columns
 				: columns = False
-</div>
+</section>
 			: end
 		: end
 	: end
@@ -83,17 +84,18 @@
 	: end
 	: title = context.croot.properties.get('separator', ' - ').join(title)
 	: title = title.upper() if context.croot.properties.get('titlecase', 'normal') == 'upper' else title
-	: classes = set()
-	: classes.update(context.croot.properties.get('cls', '').split())
-	: classes.update(asset.properties.get('cls', '').split())
 	: styles = context.croot.properties.get('styles', 'site').split()
 	: styles = ['/public/css/{}.css'.format(i) for i in styles]
 	: scripts = context.croot.properties.get('scripts', 'site').split()
 	: scripts = ['/public/js/{}.js'.format(i) for i in scripts]
+	: classes = context.croot.properties.get('cls', '').split()
 	
 	: using context.theme context, title=title, styles=styles, scripts=scripts, lang=context.lang, class_=classes
+	
+	: classes = asset.properties.get('cls', '').split()
+	: classes.insert(0, 'wc-page')
 
-<article data-theme="${name(context.theme)}">
+<article &{id=asset.properties.get('id', asset.id), class_=classes, data_id=asset.id, data_theme=name(context.theme)}>
 
 	: flush
 
