@@ -17,6 +17,12 @@
 		: attributes['href'] = block.properties.get('href', '#missing-href')
 	: elif kind == 'iframe'
 		: attributes['src'] = block.properties.get('src', 'about:blank#missing-src')
+	: elif kind == 'form'
+		: attributes['action'] = block.properties.get('action', None)
+		: attributes['method'] = block.properties.get('verb', 'post')
+		: if block.properties.get('uploads', False)
+			: attributes['enctype'] = 'multipart/form-data'
+		: end
 	: end
 	:
 	: classes.add('wc-content')
