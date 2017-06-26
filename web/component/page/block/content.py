@@ -18,11 +18,11 @@ class DescriptionBlock(Block):
 
 class TextBlock(Block):
 	__icon__ = 'font'
-
+	
 	__xml_exporters__ = {
 		'content': text_block_content,
 	}
-
+	
 	__xml_importers__ = {
 		'content': text_block_content_importer,
 	}
