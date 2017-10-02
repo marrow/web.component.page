@@ -53,7 +53,7 @@
 		
 		: if width and not columns
 			: columns = True
-<section class="horizontal">
+<section class="${block.properties.get('grouping', 'horizontal')}">
 		: end
 		
 		: use render_block context, page, block
