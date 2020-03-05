@@ -88,12 +88,10 @@
 	: styles = ['/public/css/{}.css'.format(i) for i in styles]
 	: scripts = context.croot.properties.get('scripts', 'site').split()
 	: scripts = ['/public/js/{}.js'.format(i) for i in scripts]
-	: classes = context.croot.properties.get('cls', '').split()
-	
+	: classes = {'wc-page'}
+	: classes.update(context.croot.properties.get('cls', '').split())
+	: classes.update(asset.properties.get('cls', '').split())
 	: using context.theme context, title=title, styles=styles, scripts=scripts, lang=context.lang, class_=classes
-	
-	: classes = asset.properties.get('cls', '').split()
-	: classes.insert(0, 'wc-page')
 
 <article &{id=asset.properties.get('id', asset.id), class_=classes, data_id=asset.id, data_theme=name(context.theme)}>
 
